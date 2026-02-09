@@ -1,0 +1,33 @@
+.login_form_wrapper{
+    margin: 0 auto;
+    width: 15%;
+    margin-bottom: 5vh;
+}
+
+.login_form_wrapper h1{
+font-size: 48px;
+margin-bottom:15px;
+}
+
+.form_login{
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+.form_login p{
+font-size: 30px;
+}
+
+.form_login button{
+padding: 10px 20px;
+font-size: 20px;
+margin-top: 10px;
+transition: 0.2s ease;
+}
+
+.form_login button:hover{
+color: blue;
+font-size: 22px;
+background-color: white;
+}

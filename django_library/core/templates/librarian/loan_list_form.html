@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/librarian/loan_list_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-page-wrapper">
+    <div class="form-container" style="max-width: 1000px;">
+        <h1 class="form-title">Журнал выдачи книг</h1>
+
+        <div class="form-card">
+            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <thead>
+                    <tr style="border-bottom: 2px solid #eee; text-align: left; color: #666;">
+                        <th style="padding: 12px;">ID</th>
+                        <th style="padding: 12px;">Книга</th>
+                        <th style="padding: 12px;">Читатель</th>
+                        <th style="padding: 12px;">Статус</th>
+                        <th style="padding: 12px;">Действие</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 12px;">{{ loan.loan_id }}</td>
+                        <td style="padding: 12px;">
+                            <strong>{{ loan.book_copy.book.title }}</strong><br>
+                            <small style="color: #888;">(код: {{ loan.book_copy.pk }})</small>
+                        </td>
+                        <td style="padding: 12px;">{{ loan.reader.first_name }} {{ loan.reader.last_name }}</td>
+                        <td style="padding: 12px;">
+                            <span style="padding: 4px 8px; border-radius: 4px; background: #f8f9fa; border: 1px solid #ddd; font-size: 13px;">
+                                {{ loan.status.status }}
+                            </span>
+                        </td>
+                        <td style="padding: 12px;">
+                            <a href="{% url 'loan_edit' loan.loan_id %}" class="action-btn btn-save" style="font-size: 14px; padding: 6px 12px;">
+                                Редактировать
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="text-align: center; padding: 30px; color: #999;">Выдач пока не зафиксировано.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="form-actions">
+                <a href="/control_panel/" class="action-btn btn-cancel">Вернуться в панель</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

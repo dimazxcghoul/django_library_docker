@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/librarian/book_form_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="form-page-wrapper">
+    <div class="form-container">
+        <h2 class="form-title">
+            {% if object %}Редактировать выдачу{% else %}Оформить выдачу книги{% endif %}
+        </h2>
+        
+        <div class="form-card">
+            <form method="post" class="custom-form">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}" class="custom-label">
+                            {{ field.label }}
+                        </label>
+                        
+                        <div class="input-wrapper">
+                            {{ field }}
+                        </div>
+
+                        {% if field.errors %}
+                            <ul class="error-list">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+
+                        {% if field.help_text %}
+                            <p class="help-text">{{ field.help_text }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="form-actions">
+                    <button type="submit" class="action-btn btn-save">
+                        {% if object %}Сохранить изменения{% else %}Выдать книгу{% endif %}
+                    </button>
+                    <a href="{% url 'control_panel' %}" class="action-btn btn-cancel">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

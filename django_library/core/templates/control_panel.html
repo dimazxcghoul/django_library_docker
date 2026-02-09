@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/control_panel_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="control_panel">
+    <a href="{% url 'book_add' %}">Создание книги</a>
+    <a href="{% url 'loan_add' %}">Выдача книги</a>
+    <a href="{% url 'loan_list' %}">Просмотр всех выдач</a>
+</div>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/books_catalog_style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main class="books_catalog_wrapper">
+    <div class="catalog_title"><h1>Каталог</h1></div>
+
+    <div class="books_catalog">
+        <section class="filters_section">
+    <form method="get" class="filters_form">
+        <!-- Жанр -->
+        <div class="filter_group">
+            <label for="genre">Жанр</label>
+            <select name="genre" id="genre">
+                <option value="">Все жанры</option>
+                {% for g in genres %}
+                <option value="{{ g.genre_id }}">{{ g.genre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Издательство -->
+        <div class="filter_group">
+            <label for="publisher">Издательство</label>
+            <select name="publisher" id="publisher">
+                <option value="">Все издательства</option>
+                {% for p in publishers %}
+                <option value="{{ p.id }}">{{ p.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Страницы-->
+        <div class="filter_group">
+            <label>Страниц до:</label>
+            <input type="number" name="max_pages" placeholder="Напр: 500" min="0">
+        </div>
+
+        <div class="filter_actions">
+            <button type="submit" class="btn_filter">Применить</button>
+            <a href="{% url 'books_catalog' %}" class="btn_reset">Сбросить</a>
+        </div>
+    </form>
+</section>
+
+        <div class="books_wrapper">
+    {% for book in books %}
+    <div class="book_card">
+        <div class="book_image">
+            <img src="{% static 'images/'|add:book.image %}" alt="{{ book.title }}">
+            {% if book.genre %}
+                <span class="genre_badge">{{ book.genre.genre }}</span>
+            {% endif %}
+        </div>
+
+        <div class="book_content">
+            <h2 class="book_title">
+                {{ book.title }}
+                {% if user.is_staff %}
+                    | <a href="{% url 'book_edit' book.pk %}" class="button_edit_book">Править</a>
+                {% endif %}</h2>
+            <p class="book_author">by {{ book.author }}</p>
+
+            <div class="book_meta">
+                <p><strong>Издательство:</strong> {{ book.publisher.name }}</p>
+                <p><strong>Год:</strong> {{ book.published_year }} г.</p>
+                <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+            </div>
+
+            <p class="book_description">{{ book.description|truncatewords:15 }}</p>
+
+            <div class="book_footer">
+                <span class="bbc_tag">ББК: {{ book.bbc }}</span>
+                <span class="pages_count">{{ book.pages }} стр.</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+    </div>
+
+</main>
+
+{% endblock %}

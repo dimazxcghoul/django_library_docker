@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+     {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/base_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+<header class="base-header">
+    <div class="header_wrapper">
+        <div class="logo">
+            <a href="{% url 'index' %}">
+                <h2>LOGO</h2>
+            </a>
+        </div>
+        <nav class="base-header-nav">
+            <a href="{% url 'books_catalog' %}">Книги</a>
+            <a href="{% url 'support' %}">Поддержка</a>
+            {% if user.is_staff %}
+                <a href="{% url 'control_panel' %}">Панель управления</a>
+            {% endif %}
+        </nav>
+        <div class="find-area-box">
+            <form action="{% url 'books_catalog' %}" method="get" class="search-form">
+                <input type="text" class="find-area-input" placeholder="Поиск книг по каталогу"
+                name="books_find">
+                <input type="submit"
+                       value=""
+                       class="find_sumbit"
+                       style="background-image: url({% static 'images/search.svg' %})">
+            </form>
+
+
+         </div>
+        <div class="login_wrapper">
+            {% if user.is_authenticated %}
+                <p class="authorized_username">{{ user.username }}</p>
+            <p>|</p>
+                <a href="{% url 'users:logout' %}" class="logout_link">Выйти</a>
+            {% else %}
+                <a href="{% url 'users:login' %}" class="login_link">Войти</a>
+                <p>|</p>
+                <a href="{% url 'users:register' %}" class="register_link">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+ {% block content %}{% endblock %}
+
+<footer class="base-footer">
+    <ul class="footer-menu">
+        <li class="copy-footer-menu-item">
+            <a href="/">Поддержка</a>
+        </li>
+        <li class="copy-footer-menu-item">
+            <a href="/">Поддержка</a>
+        </li>
+        <li class="copy-footer-menu-item">
+            <a href="/">Поддержка</a>
+        </li>
+        <li class="copy-footer-menu-item">
+            <a href="/">Поддержка</a>
+        </li>
+        <li class="copy-footer-menu-item">
+            <a href="/">Поддержка</a>
+        </li>
+    </ul>
+</footer>
+</body>
+</html>

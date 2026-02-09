@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/index_style.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="event-poster">
+    <div class="event-poster-title">
+        <h2>Мероприятия</h2>
+    </div>
+        <div class="events-wrapper">
+            {% for event in events %}
+            <div class="copy-event-item">
+                <img src="{% static 'images/'|add:event.image %}" alt="event-image">
+                <div class="event-date_time">
+                    <p>{{ event.date_time }}</p>
+                </div>
+                <div class="event-title">
+                    <h3>{{ event.title }}</h3>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</section>
+{% endblock %}

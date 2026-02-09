@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/librarian/loan_edit_style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="form-page-wrapper">
+    <div class="form-container">
+        <h1 class="form-title">Редактирование записи #{{ object.loan_id }}</h1>
+
+        <div class="form-card">
+            <form method="post" class="custom-form">
+                {% csrf_token %}
+
+                {% for field in form %}
+                    <div class="form-group">
+                        <label class="custom-label" for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <ul class="error-list">
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if field.help_text %}
+                            <small style="color: #888;">{{ field.help_text }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <div class="form-actions">
+                    <button type="submit" class="action-btn btn-save">Сохранить изменения</button>
+                    <a href="{% url 'loan_list' %}" class="action-btn btn-cancel">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

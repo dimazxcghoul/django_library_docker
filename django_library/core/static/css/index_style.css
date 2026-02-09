@@ -1,0 +1,41 @@
+.event-poster{
+    width: 60vw;
+    margin: 40px auto;
+}
+
+.event-poster-title{
+    margin: 40px 0 30px 20px;
+}
+
+.event-poster-title h2{
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.14px;
+}
+
+.events-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+.events-wrapper .copy-event-item{
+    width: 33%;
+    margin-top: 15px;
+}
+
+.events-wrapper .copy-event-item .event-date_time p{
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.events-wrapper .copy-event-item .event-title h3{
+    font-size: 24px;
+    margin: 10px 0;
+    line-width: 200px;
+}
+
+
+
